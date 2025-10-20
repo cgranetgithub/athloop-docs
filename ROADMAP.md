@@ -1,10 +1,9 @@
 # Athloop - Product Roadmap
 
-**Last Updated**: 2025-10-19
+**Last Updated**: 2025-10-20
 **Current Live Version**: 1.0 (App Store - Published Oct 13, 2025)
-**In Review**: 1.2 (pending Apple review)
-**Completed (Not Submitted)**: 1.3 (Bug Fixes + E2E Testing)
-**Next Release**: 1.4 (Strava Integration)
+**In Review**: 1.1 (Goal Management + E2E Testing - Pending Apple review)
+**Next Release**: 1.2 (Strava Integration)
 
 ---
 
@@ -23,7 +22,7 @@
 - Dark mode support
 - Guided onboarding flow
 
-**Known Issues** (fixed in v1.3):
+**Known Issues** (fixed in v1.1):
 - ~~Goal doesn't appear immediately after creation~~ ✅ Fixed
 - ~~Missing delete goal functionality~~ ✅ Fixed
 - ~~Missing edit goal target date functionality~~ ✅ Fixed
@@ -32,26 +31,9 @@
 
 ---
 
-### v1.1 - First Update ✅ TAGGED
-**Status**: Tagged in git (Oct 2025)
-**Release Date**: N/A (skipped submission)
-
-**Changes**: Minor improvements and fixes
-
----
-
-### v1.2 - Improvements ⏳ IN REVIEW
-**Status**: Submitted to Apple App Store (Oct 2025, pending review)
+### v1.1 - Goal Management + E2E Testing ⏳ IN REVIEW
+**Status**: Submitted to Apple App Store (Oct 20, 2025)
 **Estimated Approval**: Late October 2025
-
-**Changes**: Additional improvements and refinements
-
----
-
-## 🚧 Upcoming Releases
-
-### v1.3 - Critical Bug Fixes + E2E Testing ✅ COMPLETED
-**Status**: Completed (Oct 19, 2025) - Not yet submitted to App Store
 **Development Time**: 3 days
 **Test Coverage**: Backend 77%, Frontend 55% (E2E tests)
 
@@ -148,7 +130,9 @@ Fix critical bugs affecting user experience in production and establish comprehe
 
 ---
 
-### v1.4 - Strava Integration 🚀 MAJOR FEATURE
+## 🚧 Upcoming Releases
+
+### v1.2 - Strava Integration 🚀 MAJOR FEATURE
 **Status**: Planned
 **Target Submission**: Late November 2025
 **Estimated Effort**: 5-7 days development + 2 days testing
@@ -234,9 +218,9 @@ Display     Summarize for AI
 
 ---
 
-## 🔮 Future Versions (Post v1.4)
+## 🔮 Future Versions (Post v1.2)
 
-### v1.5 - User Profiles & Personalization
+### v1.3 - User Profiles & Personalization
 **Estimated**: December 2025
 
 **Backend**:
@@ -256,7 +240,7 @@ Display     Summarize for AI
 
 ---
 
-### v1.6 - Coach Personality Customization
+### v1.4 - Coach Personality Customization
 **Estimated**: January 2026
 
 **Backend**:
@@ -278,7 +262,7 @@ Display     Summarize for AI
 
 ---
 
-### v1.7 - Offline Persistence
+### v1.5 - Offline Persistence
 **Estimated**: February 2026
 
 **Backend**:
