@@ -132,177 +132,62 @@ Fix critical bugs affecting user experience in production and establish comprehe
 
 ## 🚧 Upcoming Releases
 
+All detailed feature planning is tracked in GitHub Issues: https://github.com/cgranetgithub/athloop-docs/issues
+
 ### v1.2 - Strava Integration 🚀 MAJOR FEATURE
 **Status**: Planned
-**Target Submission**: Late November 2025
-**Estimated Effort**: 5-7 days development + 2 days testing
+**Target**: Late November 2025
+**GitHub Issue**: [#4](https://github.com/cgranetgithub/athloop-docs/issues/4)
+**Effort**: 5-7 days dev + 2 days testing
 
-#### Objectives
-- Provide alternative to HealthKit for activity data
-- Enable multi-platform support (iOS, Android future, Web future)
-- Improve data quality from dedicated sports devices (Garmin, Wahoo, etc.)
-- Maintain privacy-first approach (no activity storage)
+**Key Features**:
+- OAuth integration with Strava
+- Activity data fetching (on-demand, no storage)
+- Alternative to HealthKit for multi-platform strategy
+- Detailed spec: `STRAVA_INTEGRATION.md`
 
-#### Implementation Plan
-**Full documentation**: See `STRAVA_INTEGRATION.md` for complete 17-phase plan
-
-**High-Level Phases**:
-
-1. **Phase 1-2**: Strava API Setup + Backend Database Migration
-   - Create Strava app credentials
-   - Add OAuth token fields to User model
-   - Migration: `alembic revision --autogenerate -m "add strava integration"`
-
-2. **Phase 3-6**: Backend Implementation
-   - `app/strava_service.py`: OAuth flow, token management, activity fetching
-   - API endpoints: `/api/strava/auth-url`, `/api/strava/callback`, `/api/strava/activities`, `/api/strava/disconnect`
-   - Modify `/api/generate-plan` to use Strava data if connected
-   - Unit tests for StravaService
-   - Integration tests for OAuth flow
-
-3. **Phase 7-12**: iOS Implementation
-   - `StravaActivity.swift` model
-   - `BackendAPIService.swift` additions for Strava endpoints
-   - `StravaConnectionView.swift` with OAuth via ASWebAuthenticationSession
-   - Modify `HealthDataView.swift`: Add segmented control (HealthKit | Strava)
-   - Deep link handling: `athloop://strava-connected`
-   - Settings integration for connected sources
-
-4. **Phase 13-15**: Localization, UI Polish, Testing
-   - Add Strava-related strings (EN/FR/ES)
-   - Strava branding (logo, colors)
-   - Activity type icons
-   - End-to-end testing (OAuth, plan generation, disconnect)
-   - Edge cases (no activities, expired tokens, rate limits)
-
-5. **Phase 16-17**: Documentation + Deployment
-   - Update CLAUDE.md with Strava integration details
-   - Deploy to Railway with STRAVA_CLIENT_ID and STRAVA_CLIENT_SECRET
-   - TestFlight beta testing
-   - App Store submission
-
-#### Architecture Decision
-**On-Demand Fetching (No Storage)**:
-- ✅ Privacy-first: consistent with "Your data is not stored" message
-- ✅ Always fresh data (no sync issues)
-- ✅ Simpler backend (no activity DB tables)
-- ✅ GDPR compliant (minimal data retention)
-- ✅ Viable: Strava API limits are generous (100/15min, 1000/day)
-
-**Data Flow**:
-```
-iOS App → Backend API → Strava API (on-demand)
-   ↓           ↓
-Display     Summarize for AI
-(no storage) (plan generation)
-```
-
-#### Success Metrics
-- ✅ OAuth success rate > 95%
-- ✅ Token refresh success rate > 99%
-- ✅ API response time < 2s for activity fetch
-- ✅ Zero activity data stored in database
-- 📈 % of users connecting Strava vs HealthKit
-- 📈 Plan generation success rate with Strava data
-
-#### Testing Checklist
-- [ ] OAuth flow end-to-end (authorize on Strava → callback → token storage)
-- [ ] Token auto-refresh after 6h expiration
-- [ ] Activity display in HealthDataView (Strava tab)
-- [ ] Plan generation with Strava data vs HealthKit data
-- [ ] Disconnect flow (removes tokens, clears UI)
-- [ ] Switch between HealthKit and Strava tabs
-- [ ] Edge cases: no activities, invalid tokens, network errors, rate limiting
-- [ ] Privacy verification: confirm no activities in database
-- [ ] Test in EN/FR/ES
+**Bug Fixes in v1.2**:
+- [#1](https://github.com/cgranetgithub/athloop-docs/issues/1) - Remove days_remaining from backend API
+- [#2](https://github.com/cgranetgithub/athloop-docs/issues/2) - Add missing Spanish translations
+- [#3](https://github.com/cgranetgithub/athloop-docs/issues/3) - Fix goal/plan data inconsistency
 
 ---
 
-## 🔮 Future Versions (Post v1.2)
+## 🔮 Future Versions
 
 ### v1.3 - User Profiles & Personalization
-**Estimated**: December 2025
+**Target**: December 2025
+**GitHub Issue**: [#5](https://github.com/cgranetgithub/athloop-docs/issues/5)
+**Effort**: 3-4 days
 
-**Backend**:
-- Add user profile fields: age, height, weight, gender
-- Migration to add profile columns to User table
-- Update AI prompts to include profile data for better recommendations
-
-**Frontend**:
-- Profile configuration screen (Settings tab)
-- Profile onboarding step (optional, after goal selection)
-- Update AI plan generation to send profile data
-
-**Features**:
-- Better AI personalization based on user demographics
-- Age-appropriate training intensity
-- Weight-based calorie calculations
+Age, height, weight, gender for better AI personalization.
 
 ---
 
 ### v1.4 - Coach Personality Customization
-**Estimated**: January 2026
+**Target**: January 2026
+**GitHub Issue**: [#6](https://github.com/cgranetgithub/athloop-docs/issues/6)
+**Effort**: 4-5 days
 
-**Backend**:
-- Add `coach_personality` field to User model (enum: motivating, military, cool, supportive, balanced)
-- Update AI prompts with personality-specific instructions
-- Different tone/language based on personality
-
-**Frontend**:
-- Personality selection screen (onboarding or settings)
-- Preview examples for each personality type
-- UI elements reflecting chosen personality (colors, icons, language)
-
-**Personalities**:
-- **Motivating**: Encouraging, positive, celebrates wins
-- **Military**: Direct, disciplined, challenging
-- **Cool**: Laid-back, friendly, chill vibes
-- **Supportive**: Empathetic, understanding, gentle
-- **Balanced**: Mix of all (default)
+Choose coach tone: Motivating, Military, Cool, Supportive, or Balanced.
 
 ---
 
 ### v1.5 - Offline Persistence
-**Estimated**: February 2026
+**Target**: February 2026
+**GitHub Issue**: [#7](https://github.com/cgranetgithub/athloop-docs/issues/7)
+**Effort**: 5-7 days
 
-**Backend**:
-- No changes required
-
-**Frontend**:
-- Local SQLite database (or Core Data)
-- Cache goals, plans, workouts offline
-- Sync with backend when online
-- Offline-first architecture
-
-**Benefits**:
-- App works without internet
-- Faster load times
-- Better UX in low-connectivity areas
+Local caching with Core Data for offline-first experience.
 
 ---
 
-### v2.0 - Advanced Features & Production Hardening
-**Estimated**: March-April 2026
+### v2.0 - Production Hardening & Advanced Features
+**Target**: March-April 2026
+**GitHub Issue**: [#8](https://github.com/cgranetgithub/athloop-docs/issues/8)
+**Effort**: 3-4 weeks
 
-**Backend**:
-- JWT authentication (replace Device-ID for production)
-- Rate limiting (protect API from abuse)
-- Redis cache for frequently accessed plans
-- Monitoring and observability (Sentry, logging)
-- Webhooks for Strava real-time updates
-- Usage analytics dashboard
-
-**Frontend**:
-- Multi-device sync (iCloud or backend sync)
-- Extended HealthKit metrics: VO2 max, heart rate zones, sleep analysis
-- Performance history charts (trends over weeks/months)
-- Social features (share workouts, challenges)
-- In-app notifications
-
-**Production**:
-- Multi-tenant architecture
-- Credit system for monetization
-- API versioning (/api/v1, /api/v2)
+JWT auth, rate limiting, Redis cache, monitoring, multi-device sync, extended HealthKit metrics, monetization.
 
 ---
 
@@ -357,24 +242,6 @@ git push origin v1.3
 
 ---
 
-## 🐛 Known Issues Tracking
-
-### Critical (Blocks users)
-- ✅ Goal doesn't appear after creation → **v1.3**
-- ✅ Cannot delete goals → **v1.3**
-- ✅ Cannot edit goal date → **v1.3**
-
-### High (Degrades UX)
-- None currently identified
-
-### Medium (Annoying but workarounds exist)
-- ⚠️ CoreGraphics NaN warnings → **v1.3** (investigate)
-
-### Low (Console noise, no user impact)
-- ⚠️ AutoLayout constraint warnings → **v1.3** (if time permits)
-
----
-
 ## 📈 Success Metrics
 
 ### App Store Metrics (Monitor)
@@ -405,20 +272,6 @@ git push origin v1.3
 - Feature requests: Evaluate and prioritize in roadmap
 
 ---
-
-## 📝 Notes
-
-### Why Strava is High Priority (v1.4)
-1. **Multi-platform strategy**: Opens door to Android/Web in future
-2. **User demand**: Serious athletes use Garmin/Wahoo → sync to Strava
-3. **Competitive advantage**: Most fitness apps support Strava
-4. **Data quality**: Better than HealthKit for serious athletes with dedicated devices
-5. **Privacy win**: Strengthens "we don't store your data" message
-
-### Why User Profiles Before Coach Personality (v1.5 → v1.6)
-- Profiles enable better AI recommendations immediately
-- Personality requires profiles for best results (age-appropriate tone)
-- Logical progression: Data → Personalization → Style
 
 ---
 

@@ -1,8 +1,10 @@
 # Strava Integration - Implementation Plan
 
+**GitHub Issue**: [#4](https://github.com/cgranetgithub/athloop-docs/issues/4)
 **Status**: 📋 Planned - Not yet implemented
 **Priority**: 🔥 High - Critical feature for multi-platform support
 **Complexity**: ⭐⭐⭐ Medium
+**Target**: v1.2 (Late November 2025)
 
 ## 🎯 Objective
 
