@@ -1,9 +1,10 @@
 # Athloop - Product Roadmap
 
-**Last Updated**: 2025-10-20
+**Last Updated**: 2025-10-25
 **Current Live Version**: 1.0 (App Store - Published Oct 13, 2025)
-**In Review**: 1.1 (Goal Management + E2E Testing - Pending Apple review)
-**Next Release**: 1.2 (Strava Integration)
+**In Review**: 1.1 (Goal Management + E2E Testing - Submitted Oct 20, 2025)
+**In Development**: 1.2 (Auto-generation & AI Enhancements - 80% complete)
+**Next Planned**: 1.3 (Strava Integration)
 
 ---
 
@@ -134,7 +135,61 @@ Fix critical bugs affecting user experience in production and establish comprehe
 
 All detailed feature planning is tracked in GitHub Issues: https://github.com/cgranetgithub/athloop-docs/issues
 
-### v1.2 - Strava Integration 🚀 MAJOR FEATURE
+### v1.2 - Auto-generation & AI Enhancements 🤖 IN DEVELOPMENT (80%)
+**Status**: In Development
+**Target**: Early November 2025
+**Development Time**: 4-5 days (mostly complete)
+
+#### Completed Features ✅
+
+**Auto-generation on Plan Expiration** ([#9](https://github.com/cgranetgithub/athloop-docs/issues/9)) - DONE
+- Automatic plan regeneration when plan expires
+- Full-screen loading view with 8 rotating progress messages
+- Centralized state management via `PlanStore`
+- Polling every 2 seconds until generation complete
+- Manual regeneration via header icon button
+- Special loading card in Goal tab during generation
+- Protection against multiple polling loops
+
+**Plan History Context for AI** ([#10](https://github.com/cgranetgithub/athloop-docs/issues/10)) - DONE
+- AI receives context from up to 3 previous plans
+- Progressive coaching with memory and continuity
+- Plans reference previous recommendations vs actual activity
+- ~700 chars per historical plan (optimized prompt size)
+
+**Translation Completeness Test** - DONE
+- Automated validation that EN/FR/ES files are synchronized
+- Prevents missing translations in production
+
+#### Remaining Work ⏳
+- Final testing and polish
+- Documentation updates
+- Bug fixes if discovered during QA
+
+#### Technical Implementation
+**Backend**:
+- Enhanced `GET /api/current-plan` with auto-generation on expiration
+- Fixed `is_plan_expired()` to handle null recommendations
+- Fetch and format 3 previous plans in `/api/generate-plan`
+- Enhanced AI prompt with plan history context
+
+**Frontend**:
+- New `PlanStore.swift` for centralized state management
+- `PlanGeneratingView` component with animations
+- `PlanGeneratingCard` for Goal tab
+- Parallel loading of goals + plan data
+- Services reorganization (ActivityDataService, BackendAPIService, HealthKitManager)
+- New translations for generation messages (EN/FR/ES)
+
+#### Bug Fixes
+- Backend crash on null recommendations during generation
+- Duplicate state management (`isGeneratingPlan` removed)
+- Multiple polling loops bug
+- Tab switching state synchronization
+
+---
+
+### v1.3 - Strava Integration 🚀 MAJOR FEATURE
 **Status**: Planned
 **Target**: Late November 2025
 **GitHub Issue**: [#4](https://github.com/cgranetgithub/athloop-docs/issues/4)
@@ -146,7 +201,7 @@ All detailed feature planning is tracked in GitHub Issues: https://github.com/cg
 - Alternative to HealthKit for multi-platform strategy
 - Detailed spec: `STRAVA_INTEGRATION.md`
 
-**Bug Fixes in v1.2**:
+**Bug Fixes to include**:
 - [#1](https://github.com/cgranetgithub/athloop-docs/issues/1) - Remove days_remaining from backend API
 - [#2](https://github.com/cgranetgithub/athloop-docs/issues/2) - Add missing Spanish translations
 - [#3](https://github.com/cgranetgithub/athloop-docs/issues/3) - Fix goal/plan data inconsistency
@@ -155,7 +210,7 @@ All detailed feature planning is tracked in GitHub Issues: https://github.com/cg
 
 ## 🔮 Future Versions
 
-### v1.3 - User Profiles & Personalization
+### v1.4 - User Profiles & Personalization
 **Target**: December 2025
 **GitHub Issue**: [#5](https://github.com/cgranetgithub/athloop-docs/issues/5)
 **Effort**: 3-4 days
@@ -164,7 +219,7 @@ Age, height, weight, gender for better AI personalization.
 
 ---
 
-### v1.4 - Coach Personality Customization
+### v1.5 - Coach Personality Customization
 **Target**: January 2026
 **GitHub Issue**: [#6](https://github.com/cgranetgithub/athloop-docs/issues/6)
 **Effort**: 4-5 days
@@ -173,7 +228,7 @@ Choose coach tone: Motivating, Military, Cool, Supportive, or Balanced.
 
 ---
 
-### v1.5 - Offline Persistence
+### v1.6 - Offline Persistence
 **Target**: February 2026
 **GitHub Issue**: [#7](https://github.com/cgranetgithub/athloop-docs/issues/7)
 **Effort**: 5-7 days
