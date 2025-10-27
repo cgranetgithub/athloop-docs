@@ -1,9 +1,9 @@
 # Athloop - Product Roadmap
 
-**Last Updated**: 2025-10-25
+**Last Updated**: 2025-10-27
 **Current Live Version**: 1.0 (App Store - Published Oct 13, 2025)
 **In Review**: 1.1 (Goal Management + E2E Testing - Submitted Oct 20, 2025)
-**In Development**: 1.2 (Auto-generation & AI Enhancements - 80% complete)
+**Completed**: 1.2 (Auto-generation & AI Enhancements - Ready for release)
 **Next Planned**: 1.3 (Strava Integration)
 
 ---
@@ -135,14 +135,15 @@ Fix critical bugs affecting user experience in production and establish comprehe
 
 All detailed feature planning is tracked in GitHub Issues: https://github.com/cgranetgithub/athloop-docs/issues
 
-### v1.2 - Auto-generation & AI Enhancements 🤖 IN DEVELOPMENT (80%)
-**Status**: In Development
+### v1.2 - Auto-generation & AI Enhancements ✅ COMPLETED
+**Status**: Development Complete
 **Target**: Early November 2025
-**Development Time**: 4-5 days (mostly complete)
+**Development Time**: 5 days
+**Test Coverage**: All integration tests passing
 
 #### Completed Features ✅
 
-**Auto-generation on Plan Expiration** ([#9](https://github.com/cgranetgithub/athloop-docs/issues/9)) - DONE
+**Auto-generation on Plan Expiration** ([#9](https://github.com/cgranetgithub/athloop-docs/issues/9)) ✅
 - Automatic plan regeneration when plan expires
 - Full-screen loading view with 8 rotating progress messages
 - Centralized state management via `PlanStore`
@@ -151,20 +152,28 @@ All detailed feature planning is tracked in GitHub Issues: https://github.com/cg
 - Special loading card in Goal tab during generation
 - Protection against multiple polling loops
 
-**Plan History Context for AI** ([#10](https://github.com/cgranetgithub/athloop-docs/issues/10)) - DONE
+**Plan History Context for AI** ([#10](https://github.com/cgranetgithub/athloop-docs/issues/10)) ✅
 - AI receives context from up to 3 previous plans
 - Progressive coaching with memory and continuity
 - Plans reference previous recommendations vs actual activity
 - ~700 chars per historical plan (optimized prompt size)
 
-**Translation Completeness Test** - DONE
+**Goal Deletion with Cascade** ([#3](https://github.com/cgranetgithub/athloop-docs/issues/3)) ✅
+- Hard delete implementation for goals
+- Automatic cascade deletion of all associated plans
+- Prevents orphaned plans in database
+- Added `is_active` filter to `get_user_goals()` for future Archive feature
+- Comprehensive integration tests (4 new test cases)
+
+**Backend API Backward Compatibility** ([#1](https://github.com/cgranetgithub/athloop-docs/issues/1)) ✅
+- Maintained `days_remaining` field in API for v1.0/v1.1 compatibility
+- v1.2 frontend uses local computed property
+- Graceful migration path without breaking older app versions
+- Field marked for removal once v1.0/v1.1 usage < 5%
+
+**Translation Completeness Test** ✅
 - Automated validation that EN/FR/ES files are synchronized
 - Prevents missing translations in production
-
-#### Remaining Work ⏳
-- Final testing and polish
-- Documentation updates
-- Bug fixes if discovered during QA
 
 #### Technical Implementation
 **Backend**:
@@ -202,9 +211,7 @@ All detailed feature planning is tracked in GitHub Issues: https://github.com/cg
 - Detailed spec: `STRAVA_INTEGRATION.md`
 
 **Bug Fixes to include**:
-- [#1](https://github.com/cgranetgithub/athloop-docs/issues/1) - Remove days_remaining from backend API
 - [#2](https://github.com/cgranetgithub/athloop-docs/issues/2) - Add missing Spanish translations
-- [#3](https://github.com/cgranetgithub/athloop-docs/issues/3) - Fix goal/plan data inconsistency
 
 ---
 

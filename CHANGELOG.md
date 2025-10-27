@@ -9,28 +9,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### v1.2 - Auto-generation & AI Enhancements (In Development)
+### v1.2 - Auto-generation & AI Enhancements ✅ COMPLETED
+**Status**: Development Complete - Ready for Release
 **Target Release**: Early November 2025
+**Development Time**: 5 days
+**Test Coverage**: All integration tests passing
 
 #### Added
-- **Auto-generation on Plan Expiration** (#9) ✅ COMPLETED
+- **Auto-generation on Plan Expiration** (#9) ✅
   - Plans automatically regenerate when expired (last_day_date < current_date)
   - Full-screen loading view with animated progress messages (8 rotating steps)
   - Automatic polling every 2 seconds until plan ready
   - Manual regeneration button moved to header as icon (matching Goal tab UX)
   - `PlanGeneratingCard` component in Goal tab during generation
   - Parallel loading of goals and plan data in GoalView
-- **Plan History Context for AI** (#10) ✅ COMPLETED
+- **Plan History Context for AI** (#10) ✅
   - AI coach now receives context from up to 3 previous plans
   - Creates progressive training plans that build on previous recommendations
   - Plans reference user's actual activity vs recommended workouts
   - Maintains coaching consistency and continuity week-over-week
-- **Translation Completeness Test** ✅ COMPLETED
+- **Goal Deletion with Cascade** (#3) ✅
+  - Hard delete implementation for goals in backend
+  - Automatic cascade deletion of all associated plans
+  - Prevents orphaned plans in database
+  - Added `is_active` filter to `get_user_goals()` for future Archive feature (see #21)
+  - Comprehensive integration tests (4 new test cases in `test_goal_deletion.py`)
+- **Translation Completeness Test** ✅
   - Automated test validates EN/FR/ES localization files are synchronized
   - Prevents missing translations from reaching production
-- Delete goal functionality with swipe-to-delete gesture
-- Edit goal target date with date picker
-- Confirmation alerts for destructive actions
 
 #### Fixed
 - Goal doesn't appear immediately after creation (GoalStore refresh issue)
@@ -38,10 +44,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Duplicate state management (`isGeneratingPlan` → centralized in PlanStore)
 - Multiple polling loops bug (added `isPolling` protection)
 - State synchronization issues when switching between tabs
-- Missing delete goal functionality
-- Missing edit goal target date functionality
+- Goal/plan data inconsistency from orphaned plans (#3)
 
 #### Changed
+- **Backward Compatibility for days_remaining** (#1) ✅
+  - Maintained `days_remaining` field in backend API for v1.0/v1.1 compatibility
+  - v1.2 frontend uses local computed property in `Goal.swift`
+  - Graceful migration path without breaking older app versions
+  - Field marked for removal once v1.0/v1.1 usage drops below 5%
 - Improved goal management UX
 - Centralized state management in stores (PlanStore, GoalStore)
 - Reorganized Services folder structure (ActivityDataService, BackendAPIService, HealthKitManager)
@@ -51,8 +61,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Created `PlanStore.swift` for centralized plan state management
 - Backend: `is_plan_expired()` now handles null recommendations safely
 - Backend: `/api/current-plan` auto-generates on expiration
+- Backend: `crud.delete_goal()` performs hard delete with cascade
+- Backend: `crud.get_user_goals()` filters by `is_active == True`
 - Frontend: Full-screen `PlanGeneratingView` component with animations
 - Localization: Added generation messages in EN/FR/ES
+- Testing: New `test_goal_deletion.py` with comprehensive cascade tests
 
 ---
 
@@ -147,4 +160,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-**Last Updated**: 2025-10-25
+**Last Updated**: 2025-10-27
